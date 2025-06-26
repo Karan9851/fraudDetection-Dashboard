@@ -45,15 +45,15 @@ st.markdown("### 🧾 Enter Transaction Details Below")
 with st.form("transaction_form"):
     col1, col2 = st.columns(2)
     with col1:
-        amount = st.number_input("💰 Amount", min_value=0.0, step=500.0, format="%.2f")
-        oldbalanceOrg = st.number_input("🏦 Sender Old Balance", min_value=0.0, step=500.0, format="%.2f")
-        oldbalanceDest = st.number_input("🏦 Receiver Old Balance", min_value=0.0, step=500.0, format="%.2f")
+        amount = st.number_input(" Amount", min_value=0.0, step=500.0, format="%.2f")
+        oldbalanceOrg = st.number_input(" Sender Old Balance", min_value=0.0, step=500.0, format="%.2f")
+        oldbalanceDest = st.number_input(" Receiver Old Balance", min_value=0.0, step=500.0, format="%.2f")
     with col2:
-        newbalanceOrig = st.number_input("🏦 Sender New Balance", min_value=0.0, step=500.0, format="%.2f")
-        newbalanceDest = st.number_input("🏦 Receiver New Balance", min_value=0.0, step=500.0, format="%.2f")
-        transaction_type = st.selectbox("🔁 Transaction Type", ["CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"])
+        newbalanceOrig = st.number_input(" Sender New Balance", min_value=0.0, step=500.0, format="%.2f")
+        newbalanceDest = st.number_input(" Receiver New Balance", min_value=0.0, step=500.0, format="%.2f")
+        transaction_type = st.selectbox(" Transaction Type", ["CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"])
 
-    submitted = st.form_submit_button("🚀 Predict Transaction")
+    submitted = st.form_submit_button(" Predict Transaction")
 
     if submitted:
         # Derived features
@@ -85,14 +85,14 @@ with st.form("transaction_form"):
         probability = model.predict_proba(input_data)[0][1] * 100
 
         st.markdown("---")
-        st.markdown("## 🔎 Prediction Result")
+        st.markdown("##  Prediction Result")
 
         result_container = st.container()
         with result_container:
             if prediction == 1:
                 st.markdown(f"""
                     <div style="background-color:#FF4B4B;padding:20px;border-radius:10px">
-                        <h2 style="color:white;">🚨 Fraud Detected!</h2>
+                        <h2 style="color:white;"> Fraud Detected!</h2>
                         <p style="color:white;font-size:18px;">
                             This transaction is flagged as fraudulent.<br>
                             <strong>Confidence:</strong> {probability:.2f}%
@@ -102,7 +102,7 @@ with st.form("transaction_form"):
             else:
                 st.markdown(f"""
                     <div style="background-color:#2ECC71;padding:20px;border-radius:10px">
-                        <h2 style="color:white;">✅ Legitimate Transaction</h2>
+                        <h2 style="color:white;"> Legitimate Transaction</h2>
                         <p style="color:white;font-size:18px;">
                             This transaction is considered safe.<br>
                             <strong>Confidence:</strong> {100 - probability:.2f}%
@@ -110,29 +110,29 @@ with st.form("transaction_form"):
                     </div>
                 """, unsafe_allow_html=True)
 
-st.markdown("### 📄 Project Summary and Insights")
-with st.expander("📘 Click to View Findings, Risks & Improvements"):
+st.markdown("###  Project Summary and Insights")
+with st.expander(" Click to View Findings, Risks & Improvements"):
     st.markdown("""
-    **📊 Key Findings:**
+    ** Key Findings:**
     - The model achieves **~99.97% accuracy** and **AUC 0.9997** on test data.
     - High recall (0.98) ensures **fraudulent activities are rarely missed**.
 
-    **⚠️ Risks:**
+    ** Risks:**
     - May produce **false positives**, flagging legitimate users occasionally.
     - Sensitive to **data imbalance**; fraud data was rare and needed SMOTE.
 
    **🔧 Future Improvements:**
-    - 🔄 **Live Integration**: Connect to a real-time API or streaming service for instant transaction analysis.
-    - ♻️ **Self-Learning**: Add a feedback loop so the model can learn continuously from new data.
-    - 🔐 **Access Control**: Enable role-based access and restrict sensitive information to authorized users.
-    - 🧾 **Audit Trails**: Maintain a full log of predictions and changes for security and traceability.
-    - 🧠 **Model Explainability**: Integrate SHAP or LIME to explain why a transaction is flagged.
-    - 📊 **Monitoring Tools**: Add real-time monitoring and alerting for model performance.
-    - 📉 **Reduce False Alarms**: Fine-tune thresholds and precision to minimize disruptions.
-    - 📦 **Deploy Anywhere**: Containerize the model with Docker for easy deployment across environments.
-    - 🧬 **Feature Expansion**: Include behavioral, geographic, or device-related features for richer insights.
-    - 🔔 **Fraud Alerts**: Notify fraud teams via email or messaging platforms in real-time.
-    - 🧪 **Version Control**: Use MLflow or DVC to track changes, experiments, and rollbacks.
-    - 🤝 **Support Integration**: Link flagged transactions with CRM tools to support follow-up actions.
-    - 🔐 **Privacy Compliance**: Ensure strong data protection and GDPR/PII compliance practices.
+    -  **Live Integration**: Connect to a real-time API or streaming service for instant transaction analysis.
+    -  **Self-Learning**: Add a feedback loop so the model can learn continuously from new data.
+    -  **Access Control**: Enable role-based access and restrict sensitive information to authorized users.
+    -  **Audit Trails**: Maintain a full log of predictions and changes for security and traceability.
+    -  **Model Explainability**: Integrate SHAP or LIME to explain why a transaction is flagged.
+    -  **Monitoring Tools**: Add real-time monitoring and alerting for model performance.
+    -  **Reduce False Alarms**: Fine-tune thresholds and precision to minimize disruptions.
+    -  **Deploy Anywhere**: Containerize the model with Docker for easy deployment across environments.
+    -  **Feature Expansion**: Include behavioral, geographic, or device-related features for richer insights.
+    -  **Fraud Alerts**: Notify fraud teams via email or messaging platforms in real-time.
+    -  **Version Control**: Use MLflow or DVC to track changes, experiments, and rollbacks.
+    -  **Support Integration**: Link flagged transactions with CRM tools to support follow-up actions.
+    -  **Privacy Compliance**: Ensure strong data protection and GDPR/PII compliance practices.
     """)

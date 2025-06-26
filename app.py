@@ -10,6 +10,7 @@ feature_names = ['step', 'amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanc
                  'type_CASH_OUT', 'type_DEBIT', 'type_PAYMENT', 'type_TRANSFER',
                  'errorBalanceOrig', 'errorBalanceDest']
 
+# page layout
 st.set_page_config(page_title="Fraud Detection Dashboard", layout="centered")
 st.markdown("""
     <style>
@@ -38,6 +39,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+#title
 st.title(" Real-Time Fraud Detection")
 st.markdown("## Enter Transaction Details Below")
 
@@ -56,7 +58,7 @@ with st.form("transaction_form"):
     submitted = st.form_submit_button(" Predict Transaction")
 
     if submitted:
-        # Derived features
+        #  feature engineering
         errorBalanceOrig = oldbalanceOrg - newbalanceOrig - amount
         errorBalanceDest = newbalanceDest - oldbalanceDest - amount
 
@@ -79,8 +81,10 @@ with st.form("transaction_form"):
             'type_TRANSFER': type_TRANSFER,
             'errorBalanceOrig': errorBalanceOrig,
             'errorBalanceDest': errorBalanceDest,
-        }])[feature_names]  # Ensure correct feature order
+        }])[feature_names]  
 
+
+        # model used tfor prediction
         prediction = model.predict(input_data)[0]
         probability = model.predict_proba(input_data)[0][1] * 100
 
@@ -114,25 +118,21 @@ st.markdown("###  Project Summary and Insights")
 with st.expander(" Click to View Findings, Risks & Improvements"):
     st.markdown("""
     ** Key Findings:**
-    - The model achieves **~99.97% accuracy** and **AUC 0.9997** on test data.
-    - High recall (0.98) ensures **fraudulent activities are rarely missed**.
+    - The model achieves ~99.97% accuracy and AUC 0.9997 on test data.
+    - High recall (0.98) ensures **fraudulent activities are rarely missed.
+    = Derived features like errorBalanceOrig and errorBalanceDest significantly improved detection power.
+    
 
     ** Risks:**
     - May produce **false positives**, flagging legitimate users occasionally.
     - Sensitive to **data imbalance**; fraud data was rare and needed SMOTE.
 
    ** Future Improvements:**
-    -  **Live Integration**: Connect to a real-time API or streaming service for instant transaction analysis.
-    -  **Self-Learning**: Add a feedback loop so the model can learn continuously from new data.
-    -  **Access Control**: Enable role-based access and restrict sensitive information to authorized users.
-    -  **Audit Trails**: Maintain a full log of predictions and changes for security and traceability.
-    -  **Model Explainability**: Integrate SHAP or LIME to explain why a transaction is flagged.
-    -  **Monitoring Tools**: Add real-time monitoring and alerting for model performance.
-    -  **Reduce False Alarms**: Fine-tune thresholds and precision to minimize disruptions.
-    -  **Deploy Anywhere**: Containerize the model with Docker for easy deployment across environments.
-    -  **Feature Expansion**: Include behavioral, geographic, or device-related features for richer insights.
-    -  **Fraud Alerts**: Notify fraud teams via email or messaging platforms in real-time.
-    -  **Version Control**: Use MLflow or DVC to track changes, experiments, and rollbacks.
-    -  **Support Integration**: Link flagged transactions with CRM tools to support follow-up actions.
-    -  **Privacy Compliance**: Ensure strong data protection and GDPR/PII compliance practices.
+    -  Live Integration: Connect to a real-time API or streaming service for instant transaction analysis.
+    
+    -  **Fraud Alerts**:  with email, SMS, or dashboard alerts to notify fraud analysts in real-time.
+    
+    - Keep Learning from New Data : Let the model learn from new fraud cases automatically and improve itself over time (self-learning system).
+    
+  
     """)

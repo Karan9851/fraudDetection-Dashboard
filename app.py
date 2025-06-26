@@ -38,8 +38,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🔍 Real-Time Fraud Detection")
-st.markdown("### 🧾 Enter Transaction Details Below")
+st.title(" Real-Time Fraud Detection")
+st.markdown("## Enter Transaction Details Below")
 
 # Input fields
 with st.form("transaction_form"):
@@ -121,7 +121,7 @@ with st.expander(" Click to View Findings, Risks & Improvements"):
     - May produce **false positives**, flagging legitimate users occasionally.
     - Sensitive to **data imbalance**; fraud data was rare and needed SMOTE.
 
-   **🔧 Future Improvements:**
+   ** Future Improvements:**
     -  **Live Integration**: Connect to a real-time API or streaming service for instant transaction analysis.
     -  **Self-Learning**: Add a feedback loop so the model can learn continuously from new data.
     -  **Access Control**: Enable role-based access and restrict sensitive information to authorized users.
